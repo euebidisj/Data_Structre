@@ -36,7 +36,7 @@ Status StackInstert(SqStack_link P,SElemtype e){
         P->base = (SElemtype *)realloc(P->base,(P->StackSize + STACKMAVESIZE) * sizeof(SElemtype));
         if (!P->base)
             return false;
-        P->top = P->base + P->StackSize;
+        P->top = P->base + P->StackSize;        // 此步需特殊记忆  当top指针超过空间范围时增加空间后重新将top指针指向栈顶
         P->StackSize += STACKMAVESIZE;   
     }
     *(P->top++) = e;         //插入元素 并且top指针加一
@@ -100,5 +100,6 @@ void main(){
     if(GetTop(&S,&e))
         printf("此时的栈顶元素为:%d\n",e);
     else
-        printf("空栈\n");   
+        printf("空栈\n");  
+    printf("栈内元素个数为：%d",S.top-S.base);
 }
