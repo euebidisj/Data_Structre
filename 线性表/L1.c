@@ -118,6 +118,7 @@ Status ListDelete_Sq(SqList *L, int i, ElemType e)
 void main()
 {
     SqList lee;
+    char c[100];
     //printf("AAAAAAAA");
     if (InitList_Sq(&lee))
     {
@@ -127,8 +128,15 @@ void main()
     {
         printf("失败\n");
     }
-
-    InitData_Sq(&lee);
+    printf("请输入数据输入(#)结束");
+    scanf("%s",c);
+    while (*c != '#')
+    {
+        ListInsert_Sq(&lee,lee.length+1,atoi(c));
+        scanf("%s",c);
+    }
+    
+//    InitData_Sq(&lee);
     DisPlay(&lee);
     ListDelete_Sq(&lee, 1, 10);
     DisPlay(&lee);
