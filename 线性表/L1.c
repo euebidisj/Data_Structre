@@ -99,13 +99,13 @@ Status ListInsert_Sq(SqList *L, int i, ElemType e)
 /*
     删除指定位置的元素
 */
-Status ListDelete_Sq(SqList *L, int i, ElemType e)
+Status ListDelete_Sq(SqList *L, int i)
 {
     ElemType *q, *p;
     if (i < 1 || i > L->length)
         return ERROR;
     q = (L->elem + (i - 1));       //获取要删除位置元素指针
-    e = *q;                        //输出值
+    // e = *q;                        //输出值
     p = &(L->elem[L->length - 1]); //表尾元素的位置指针
     for (q++; q <= p; q++)         //要考虑边界问题
     {
@@ -119,28 +119,23 @@ void main()
 {
     SqList lee;
     char c[100];
-    //printf("AAAAAAAA");
-    if (InitList_Sq(&lee))
-    {
-        printf("初始化成功\n");
-    }
-    else
-    {
-        printf("失败\n");
-    }
+    int i,n;
+    InitList_Sq(&lee);
     printf("请输入数据输入(#)结束");
     scanf("%s",c);
-    while (*c != '#')
-    {
+    while (*c != '#'){
         ListInsert_Sq(&lee,lee.length+1,atoi(c));
         scanf("%s",c);
     }
-    
-//    InitData_Sq(&lee);
     DisPlay(&lee);
-    ListDelete_Sq(&lee, 1, 10);
+    puts("请输入要删除元素的位置:");
+    scanf("%d",&i);
+    ListDelete_Sq(&lee, i);
     DisPlay(&lee);
-    printf("-------------------------------------\n");
-    ListInsert_Sq(&lee, 5, 555);
+    puts("请输入要插入元素的位置:");
+    scanf("%d",&i);
+    puts("请输入要插入元素值:");
+    scanf("%d",&n);
+    ListInsert_Sq(&lee, i, n);
     DisPlay(&lee);
 }

@@ -108,6 +108,7 @@ void DisPlay(LinkQueue *Q){
 void main(){
     LinkQueue Q;
     int i,n,e;
+
     if (!InitQueue(&Q))
         puts("¥Ê¥¢ø’º‰∑÷≈‰ ß∞‹!");
     for (i = 0; i < 10; i++)

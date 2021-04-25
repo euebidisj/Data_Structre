@@ -84,5 +84,9 @@ LINK32=link.exe
 
 SOURCE=.\L1.c
 # End Source File
+# Begin Source File
+
+SOURCE=..\..\L2\L2.c
+# End Source File
 # End Target
 # End Project

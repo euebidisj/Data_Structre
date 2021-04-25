@@ -30,6 +30,18 @@ Status StackInit(SqStack_link L){
 }
 
 
+/*
+    判断栈是否为空
+    1.当栈顶指针等于栈底指针时栈为空,否则不为空
+*/
+int GetNull(SqStack_link L){
+    if(L->top == L->base){
+        return 1;
+    }
+    return 0;
+}
+
+
 Status StackInstert(SqStack_link P,SElemtype e){
     if (P->top - P->base >= P->StackSize)
     {
@@ -86,20 +98,31 @@ void main(){
         printf("存储空间分配失败！\n");
     }
     StackDisplay(&S);
+    if(GetNull(&S)){
+        printf("此时栈为空!\n");
+    }else{
+        printf("此时栈不为空!\n");
+    }
     for (i = 0; i < 10; i++)
     {
         StackInstert(&S,i);
     }
     StackDisplay(&S);
+    if(GetNull(&S)){
+        printf("此时栈为空!\n");
+    }else{
+        printf("此时栈不为空!\n");
+    }
     if(GetTop(&S,&e))
         printf("此时的栈顶元素为:%d\n",e);
     else
         printf("空栈\n");
     Pop(&S);
+    printf("进行出栈操作\n");
     StackDisplay(&S);
     if(GetTop(&S,&e))
         printf("此时的栈顶元素为:%d\n",e);
     else
         printf("空栈\n");  
-    printf("栈内元素个数为：%d",S.top-S.base);
+    printf("栈内元素个数为：%d\n",S.top-S.base);
 }

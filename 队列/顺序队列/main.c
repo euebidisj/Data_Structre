@@ -1,7 +1,7 @@
 #include <STDIO.H>
 #include <MALLOC.H>
 
-#define MaxQsize 5
+#define MaxQsize 100
 #define QElemtype int
 #define Status int
 #define true 1
@@ -67,9 +67,20 @@ Status DeQueue(SqQueue *L,QElemtype *e){
 }
 
 /*
-    显示循环队列的数据
-    1.显示预先分配空间内的所有数据
-    2.遍历
+    判断队列是否为空
+    1.判断条件L->rear == L->front
+*/
+int GetNull(SqQueue *L){
+    if(L->rear == L->front){
+        return 1;
+    }
+    return 0;
+}
+
+
+/*
+    显示分配给队列空间内的所有数据
+    1.遍历
 */
 void SDisPlay(SqQueue *L){
     int i;
@@ -79,36 +90,57 @@ void SDisPlay(SqQueue *L){
     }
 }
 
+/**
+ *  显示队列中的数据
+ *  1.定义指针tap指向队头,移动指针显示数据.
+ *  2.判断依据队列不为空
+*/
+Status SSDisPlay(SqQueue *L){
+    int tap=L->front;
+    while(tap !=L->rear){
+        printf("%d ",L->data[tap]);
+        tap = (tap+1)%MaxQsize;
+    }
+    return true;
+}
+
+
+
+
 void main(){
     SqQueue S;
     int i,e,n;
+    char c[100];
+
     InitLueue(&S);
-    for (i = 0; i < 5; i++){
-        if (!EnQueue(&S,i+1))
-        {
-            printf("插入第%d个数据时失败!\n",i);
-        }
+    puts("初始化队列!");
+    if (GetNull(&S))
+        printf("此时队列为空!\n");
+    else
+        printf("此时队列非空!\n");
+
+    printf("请输入数据输入(#)结束");
+    scanf("%s",c);
+    while (*c != '#'){
+        EnQueue(&S,atoi(c));
+        scanf("%s",c);
     }
-    SDisPlay(&S);
+    printf("队列中的数据:");
+    SSDisPlay(&S);
     puts("");
-    puts("请输入要出队列的元素个数");
+
+    puts("请输入要出队列的元素个数:");
     scanf("%d",&n);
     for (i = 0; i < n; i++)
     {
         if (!DeQueue(&S,&e))
         {
-            printf("出队失败\n");
+            printf("队列已空!\n");
         }else{
-            printf("出队的元素为:%d\n",e);        
+            printf("第%d次出队的元素为:%d\n",i+1,e);        
         }
     }
-    
-    // DeQueue(&S,&e);
-    // printf("出队的元素为:%d\n",e);
-    // DeQueue(&S,&e);
-    // printf("出队的元素为:%d\n",e);
-    // DeQueue(&S,&e);
-    // printf("出队的元素为:%d\n",e);
-    SDisPlay(&S);
+    printf("队列中的数据:");
+    SSDisPlay(&S);
     puts("");    
 }
